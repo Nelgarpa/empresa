@@ -33,4 +33,17 @@ public class InventarioController {
     public void delete(@PathVariable String id) {
         repo.deleteById(id);
     }
+    
+    @GetMapping("/buscarInventario")
+    public List<Inventario> buscar(
+        @RequestParam(required = false) String nombre,
+        @RequestParam(required = false) String usuario,
+        @RequestParam(required = false) String obra
+    ) {
+        return repo.findByNombreContainingIgnoreCaseAndUsuarioContainingIgnoreCaseAndObraContainingIgnoreCase(
+            nombre != null ? nombre : "",
+            usuario != null ? usuario : "",
+            obra != null ? obra : ""
+        );
+    }
 }
